@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
 
 import com.losolved.nasa.dto.PositionDTO;
 import com.losolved.nasa.dto.ResponseDTO;
@@ -13,6 +14,7 @@ import com.losolved.nasa.model.Robot;
 import com.losolved.nasa.repositories.RobotRepository;
 import com.losolved.nasa.services.RobotService;
 
+@Service
 public class RobotServiceImpl implements RobotService {
 	
 	@Autowired
@@ -21,7 +23,6 @@ public class RobotServiceImpl implements RobotService {
 	@Override
 	public ResponseDTO launch(Robot robot) {
 		// TODO Auto-generated method stub
-		
 		robotRepository.save(robot);
 		return new ResponseDTO("Robot launched", HttpStatus.CREATED.value());
 	}

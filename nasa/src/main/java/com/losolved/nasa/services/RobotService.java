@@ -8,7 +8,7 @@ import com.losolved.nasa.dto.PositionDTO;
 import com.losolved.nasa.dto.ResponseDTO;
 import com.losolved.nasa.model.Robot;
 
-
+@Service
 public interface RobotService {
 	
 	public ResponseDTO launch(Robot robot);
