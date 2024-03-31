@@ -88,6 +88,16 @@ public class RobotServiceTest {
 		assertEquals(HttpStatus.OK.value(), responseDTO.code());
 		assertEquals("Position updated", responseDTO.message());
 	}
+	
+	@Test
+	public void testFailureUpdateRobot() {
+		given(robotRepository.findById( NasaMocked.OPPORTUNITY.getId())).willReturn(Optional.empty());
+		
+		PositionDTO position = new PositionDTO(0, 1, 'N');
+
+		assertThrows(NoSuchRobotException.class, () -> robotSerivce.updatePosition(position, UUID.randomUUID()));
+	}
+	
 
 
 }
