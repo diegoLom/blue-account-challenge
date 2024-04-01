@@ -21,7 +21,7 @@ public class GlobalExceptionHandler {
 	
 	@ExceptionHandler(value = NoSuchRegisterException.class)
 	@ResponseStatus(HttpStatus.NOT_FOUND)
-	public @ResponseBody ResponseDTO handleAccommodationException(NoSuchRegisterException ex) {
+	public @ResponseBody ResponseDTO handleRegisterException(NoSuchRegisterException ex) {
 		return new ResponseDTO(ex.getMessage(), HttpStatus.NOT_FOUND.value());
 	}
 

@@ -6,6 +6,9 @@ import com.losolved.nasa.model.Register;
 import com.losolved.nasa.services.RegisterService;
 import com.losolved.nasa.services.impl.RegisterServiceImpl;
 
+//import io.swagger.annotations.Api;
+//import io.swagger.annotations.ApiOperation;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,14 +30,14 @@ public class RegisterController {
     public RegisterController(RegisterServiceImpl registerService) {
         this.registerService = registerService;
     }
-
-    @GetMapping("/api/register/{id}")
+    
+     @GetMapping("/api/register/{id}")
     public List<Register> getRegister(@PathVariable UUID id) {
         return registerService.getRegisterFromRobo(id);
     }
 
     @PostMapping("/api/register/")
-    public List<Register> getAccommodationsByLocationAndPriceRange(@RequestBody InDateBetweenAndRobot search) throws Exception {
+    public List<Register> getRegisterFromDateBetween(@RequestBody InDateBetweenAndRobot search) throws Exception {
         return registerService.getRegisterFromDateBetween(search);
     }
     

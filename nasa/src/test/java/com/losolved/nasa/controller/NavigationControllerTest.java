@@ -1,5 +1,6 @@
 package com.losolved.nasa.controller;
 
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -49,7 +50,7 @@ public class NavigationControllerTest {
 
 	@Test
 	public void givenAPublishing() throws Exception {
-		given(publishMessage.sendMessage(ArgumentMatchers.any()))
+		given(publishMessage.sendMessage(ArgumentMatchers.any(), anyString()))
 				.willReturn( new ResponseDTO("Published successfully", HttpStatus.OK.value() ));
 		
 		
@@ -59,7 +60,7 @@ public class NavigationControllerTest {
 		mockMvc.perform(
 				post("/api/navigation").contentType(MediaType.APPLICATION_JSON).characterEncoding("utf-8").content(json))
 				. // .accept(MediaType.APPLICATION_JSON)).
-				andExpect(status().isCreated()).andExpect(jsonPath("$.code", Matchers.equalTo(200)))
+				andExpect(status().isOk()).andExpect(jsonPath("$.code", Matchers.equalTo(200)))
 				.andExpect(jsonPath("$.message", Matchers.equalTo("Published successfully")));
 	}
 

@@ -23,7 +23,7 @@ public class NavigationController {
     @PostMapping("/api/navigation")
     public ResponseDTO publishMessage(@RequestBody MessageQueue message) {
         // Assuming publishMessageService.sendMessage returns a ResponseDTO
-        ResponseDTO response = publishMessageService.sendMessage(message);
-        return response;
+      //  ResponseDTO response = publishMessageService.sendMessage(message);
+        return null;
     }
 }

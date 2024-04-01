@@ -43,7 +43,7 @@ public class RegisterServiceTest {
 	public void testWriteDown() {
 		Register mockedRegister = NasaMocked.getMockedRegister();
 		
-		given(registerRepository.save(ArgumentMatchers.any())).willReturn(Optional.of(mockedRegister));
+		given(registerRepository.save(ArgumentMatchers.any())).willReturn(mockedRegister);
 
 		ResponseDTO response = registerSerivce.writeDown(mockedRegister);
 		assertEquals(response.code(), HttpStatus.CREATED.value());
@@ -53,7 +53,7 @@ public class RegisterServiceTest {
 	
 	@Test
 	public void testGetRegisterFromDateBetween() {
-		InDateBetweenAndRobot  searchFilter = new InDateBetweenAndRobot( NasaMocked.REGISTER_MADE_IN_PAST_THREE,  NasaMocked.REGISTER_MADE_IN_PAST_FOUR, NasaMocked.OPPORTUNITY);
+		InDateBetweenAndRobot  searchFilter = new InDateBetweenAndRobot( NasaMocked.REGISTER_MADE_IN_PAST_FOUR,  NasaMocked.REGISTER_MADE_IN_PAST_THREE, NasaMocked.OPPORTUNITY);
 		List<Register> registerFromDB = NasaMocked.getMockedRegister(searchFilter);
 		
 		given(registerRepository.findByRegisterDateBetweenAndRobot(searchFilter.startRegister(), searchFilter.endRegister(), searchFilter.robot()))

@@ -4,11 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 public class NoSuchRobotException extends RuntimeException {
-	
-	
-	
 	public NoSuchRobotException() {
-		super("Flight not found");
+		super("Robot not found");
 		
 	}
 	

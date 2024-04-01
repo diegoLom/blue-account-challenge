@@ -32,18 +32,13 @@ import com.losolved.nasa.services.RegisterService;
 import com.losolved.nasa.services.impl.RegisterServiceImpl;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(RegisterControllerTest.class)
+@WebMvcTest(RegisterController.class)
 public class RegisterControllerTest {
-
-	private RegisterService registerService;
+	
+	@MockBean
+	private RegisterServiceImpl registerService;
 
 	@Autowired
-	public RegisterControllerTest(RegisterServiceImpl registerService) {
-		super();
-		this.registerService = registerService;
-	}
-
-	@MockBean
 	private MockMvc mockMvc;
 
 	private static ObjectMapper mapper = new ObjectMapper();
@@ -60,7 +55,7 @@ public class RegisterControllerTest {
 		Register register = NasaMocked.getMockedRegister();
 		given(registerService.getRegisterFromRobo(NasaMocked.OPPORTUNITY.getId())).willReturn(registerFiltered);
 
-		mockMvc.perform(get("/api/register/".concat(register.getId().toString()))).andExpect(status().isOk())
+		mockMvc.perform(get("/api/register/".concat(NasaMocked.OPPORTUNITY.getId().toString()))).andExpect(status().isOk())
 				.andExpect(jsonPath("$", Matchers.hasSize(registerFiltered.size())));
 	}
 	

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.losolved.nasa.dto.InDateBetweenAndRobot;
 import com.losolved.nasa.dto.ResponseDTO;
+import com.losolved.nasa.errorhandling.NoSuchRegisterException;
 import com.losolved.nasa.errorhandling.NoSuchRobotException;
 import com.losolved.nasa.model.Register;
 import com.losolved.nasa.model.Robot;
@@ -37,7 +38,7 @@ public class RegisterServiceImpl implements RegisterService {
 	   List<Register> registers = registerRepository.findByRobot(filter); 
 	
 	   if(!registers.isEmpty()) return registers;
-	   throw new NoSuchRobotException("Register not found");
+	   throw new NoSuchRegisterException("Register not found");
 	}
 
 	@Override
@@ -46,7 +47,7 @@ public class RegisterServiceImpl implements RegisterService {
 		
 		List<Register> registers = registerRepository.findByRegisterDateBetweenAndRobot(arg0.startRegister(), arg0.endRegister(), arg0.robot());
 		if(!registers.isEmpty()) return registers;
-		throw new NoSuchRobotException("Register not found");
+		throw new NoSuchRegisterException("Register not found");
 	}
 
 }

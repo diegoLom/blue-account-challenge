@@ -2,8 +2,11 @@ package com.losolved.nasa.model;
 
 import java.util.UUID;
 
+import org.hibernate.annotations.UuidGenerator;
+
 import com.losolved.nasa.validation.CharacterAllowedValues;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -22,15 +25,16 @@ import lombok.NoArgsConstructor;
 public class Robot {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.UUID)
+	@GeneratedValue
+	@UuidGenerator
 	private UUID id;
 	
 	private String alias;
 	
-	@Positive(message = "Only positive numbers are accepted")
+	//@Positive(message = "Only positive numbers are accepted")
 	private Integer posX; 
 	
-	@Positive(message = "Only positive numbers are accepted")
+	//@Positive(message = "Only positive numbers are accepted")
 	private Integer posY;
 	
 	private Character orientation; 

@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 public class NoSuchRegisterException extends RuntimeException {
 	
 	public NoSuchRegisterException() {
-		super("Accommodation not found");
+		super("Register not found");
 		
 	}
 	

@@ -38,7 +38,7 @@ public class NasaMocked {
 	 
 	   public static final Robot SOJOURNER =  Robot.builder().id(UUID.randomUUID()).alias("Sojourner").posX(0).posY(0).orientation('N').build();
 	   public static final Robot OPPORTUNITY =  Robot.builder().id(UUID.randomUUID()).alias("Opportunity").posX(0).posY(0).orientation('N').build();
-	   public static final Robot CURIOSITY =  Robot.builder().id(UUID.randomUUID()).alias("Curiosity").posX(0).posY(0).orientation('N').build(); 
+	   public static final Robot CURIOSITY =  Robot.builder().id(UUID.randomUUID()).alias("Curiosity").posX(1).posY(1).orientation('N').build(); 
 	   
 	   public static final LocalDateTime REGISTER_MADE_IN_PAST_FIVE = LocalDateTime.now().minusDays(5);
 	   public static final LocalDateTime REGISTER_MADE_IN_PAST_FOUR = LocalDateTime.now().minusDays(4);
@@ -88,9 +88,10 @@ public class NasaMocked {
 		   
 		   List<Register> registers =   createMockedRegisters();
 		   
-		   List<Register> registersFiltered =  registers.stream().filter( x -> x.getRobot().getAlias().equals(inDateBetweenAndRobot.robot().getAlias())  
-				 &&  x.getRegisterDate().compareTo(inDateBetweenAndRobot.startRegister()) >=0 && x.getRegisterDate().compareTo(inDateBetweenAndRobot.endRegister()) <=0 
-				   ).collect(Collectors.toList());
+		   List<Register> registersFiltered =  registers.stream().filter(x -> x.getRobot().getAlias().equals(inDateBetweenAndRobot.robot().getAlias())
+				   && x.getRegisterDate().compareTo(inDateBetweenAndRobot.startRegister()) >=0 && x.getRegisterDate().compareTo(inDateBetweenAndRobot.endRegister()) <=0
+				   ).
+				   collect(Collectors.toList()); 
 		   
 		   return registersFiltered;
 		   
