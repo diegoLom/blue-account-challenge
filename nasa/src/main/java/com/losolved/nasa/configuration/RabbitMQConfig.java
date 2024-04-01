@@ -3,8 +3,16 @@ package com.losolved.nasa.configuration;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitAdmin;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+
+import java.util.UUID;
+
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.Queue;
@@ -15,7 +23,8 @@ import org.springframework.amqp.core.TopicExchange;
 public class RabbitMQConfig {
 
     private final ConnectionFactory connectionFactory;
-
+    
+    @Autowired
     public RabbitMQConfig(ConnectionFactory connectionFactory) {
         this.connectionFactory = connectionFactory;
     }
@@ -47,6 +56,25 @@ public class RabbitMQConfig {
     
     @Bean
     public Jackson2JsonMessageConverter messageConverter() {
-        return new Jackson2JsonMessageConverter();
+    	Jackson2JsonMessageConverter converter = new Jackson2JsonMessageConverter(objectMapper());
+           return converter;
+    }
+    
+    @Bean
+    public ObjectMapper objectMapper() {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
+        
+        SimpleModule module = new SimpleModule();
+        module.addDeserializer(UUID.class, new UUIDFromStringDeserializer());
+        objectMapper.registerModule(module);
+        return objectMapper;
+    }
+    
+    static class UUIDFromStringDeserializer extends com.fasterxml.jackson.databind.JsonDeserializer<UUID> {
+        @Override
+        public UUID deserialize(com.fasterxml.jackson.core.JsonParser p, com.fasterxml.jackson.databind.DeserializationContext ctxt) throws java.io.IOException, com.fasterxml.jackson.core.JsonProcessingException {
+            return UUID.fromString(p.getValueAsString());
+        }
     }
 }

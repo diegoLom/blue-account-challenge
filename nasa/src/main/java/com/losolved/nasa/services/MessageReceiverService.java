@@ -23,9 +23,10 @@ public class MessageReceiverService {
 	
 	@Autowired
 	private RegisterService registerService;
-
+	
     @RabbitListener(queues = RabbitMQConfig.QUEUE_NAME)
     public void receiveMessage(MessageReceiveDTO messageReceived) {
+    	System.out.print(messageReceived);
     	PositionDTO positionDTO = MessageReceiverMerger.positionFromMessage(messageReceived);
     	Register register = MessageReceiverMerger.registerFromMessage(messageReceived);
     	

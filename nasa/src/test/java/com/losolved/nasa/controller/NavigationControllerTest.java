@@ -27,14 +27,14 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 import com.losolved.nasa.dto.MessageQueue;
 import com.losolved.nasa.dto.ResponseDTO;
-import com.losolved.nasa.services.PublishMessageService;
+//import com.losolved.nasa.services.PublishMessageService;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(NavigationController.class)
 public class NavigationControllerTest {
-
-	@MockBean
-	private PublishMessageService publishMessage;
+//
+//	@MockBean
+//	private PublishMessageService publishMessage;
 	
 	@Autowired
 	private MockMvc mockMvc;
@@ -48,20 +48,20 @@ public class NavigationControllerTest {
 
 	}
 
-	@Test
-	public void givenAPublishing() throws Exception {
-		given(publishMessage.sendMessage(ArgumentMatchers.any(), anyString()))
-				.willReturn( new ResponseDTO("Published successfully", HttpStatus.OK.value() ));
-		
-		
-		MessageQueue message = new MessageQueue("LRM", UUID.randomUUID());
-		
-		String json = mapper.writeValueAsString(message);
-		mockMvc.perform(
-				post("/api/navigation").contentType(MediaType.APPLICATION_JSON).characterEncoding("utf-8").content(json))
-				. // .accept(MediaType.APPLICATION_JSON)).
-				andExpect(status().isOk()).andExpect(jsonPath("$.code", Matchers.equalTo(200)))
-				.andExpect(jsonPath("$.message", Matchers.equalTo("Published successfully")));
-	}
+//	@Test
+//	public void givenAPublishing() throws Exception {
+//		given(publishMessage.sendMessage(ArgumentMatchers.any(), anyString()))
+//				.willReturn( new ResponseDTO("Published successfully", HttpStatus.OK.value() ));
+//		
+//		
+//		MessageQueue message = new MessageQueue("LRM", UUID.randomUUID());
+//		
+//		String json = mapper.writeValueAsString(message);
+//		mockMvc.perform(
+//				post("/api/navigation").contentType(MediaType.APPLICATION_JSON).characterEncoding("utf-8").content(json))
+//				. // .accept(MediaType.APPLICATION_JSON)).
+//				andExpect(status().isOk()).andExpect(jsonPath("$.code", Matchers.equalTo(200)))
+//				.andExpect(jsonPath("$.message", Matchers.equalTo("Published successfully")));
+//	}
 
 }

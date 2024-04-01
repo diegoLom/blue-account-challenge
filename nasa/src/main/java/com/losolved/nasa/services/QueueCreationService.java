@@ -35,6 +35,6 @@ public class QueueCreationService {
     }
     
     public static String getRoutingKey(UUID id) {
-    	return id + "_" + NAME_SUFFIX;
+    	return id + "_" + ROUNTING_KEY;
     }
 }
