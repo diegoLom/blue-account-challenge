@@ -15,6 +15,7 @@ import java.util.UUID;
 
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
+import org.springframework.amqp.core.DirectExchange;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.core.TopicExchange;
 
@@ -46,17 +47,19 @@ public class RabbitMQConfig {
 
     @Bean
     public Binding binding() {
-        return BindingBuilder.bind(registrationQueue()).to(topicExchange()).with(ROUTING_KEY);
+        return BindingBuilder.bind(registrationQueue()).to(directExchange()).with(ROUTING_KEY);
     }
 
     @Bean
-    public TopicExchange topicExchange() {
-        return new TopicExchange(EXCHANGE_NAME);
+    public DirectExchange directExchange() {
+        return new DirectExchange(EXCHANGE_NAME);
     }
     
     @Bean
     public Jackson2JsonMessageConverter messageConverter() {
     	Jackson2JsonMessageConverter converter = new Jackson2JsonMessageConverter(objectMapper());
+    	
+    	
            return converter;
     }
     
@@ -68,6 +71,11 @@ public class RabbitMQConfig {
         SimpleModule module = new SimpleModule();
         module.addDeserializer(UUID.class, new UUIDFromStringDeserializer());
         objectMapper.registerModule(module);
+        
+        SimpleModule module2= new SimpleModule();
+        module.addDeserializer(byte[].class, new ByteArrayDeserializer());
+        objectMapper.registerModule(module);
+
         return objectMapper;
     }
     
